@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Imports;
+
 ini_set('max_execution_time', 1200);
 
 use App\Region;
@@ -13,28 +14,25 @@ use Illuminate\Support\Arr as SupportArr;
 class RegionsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $rows)
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function model(array $row)
     {
-        $id = SupportArr::get($rows, 'cve_reg');
-        $name = SupportArr::get($rows, 'nom_reg');
-        $region = SupportArr::get($rows, 'region');
-        $Region = Region::where('id', $id)->exists();
-                if (!$Region) {
-                    $Regions = new Region();
-                    $Regions->id = $id;
-                    $Regions->nameRegion = $name;
-                    $Regions->region = $region;
-                    $Regions->save();
-                }
+        $Region = Region::where('id', $row['cve_reg'])->exists();
+        if (!$Region) {
+            return new Region([
+                'id' => $row['CVE_REG'] ?? $row['cve_reg'],
+                'nameRegion' => $row['NOM_REG'] ?? $row['nom_reg'],
+                'region' => $row['REGION'] ?? $row['region'],
+            ]);
+        }
     }
 
     public function batchSize(): int
     {
-        return 10;
+        return 5;
     }
 
     public function chunkSize(): int

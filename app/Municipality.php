@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Municipality extends Model
 {
-    protected $guarded = [];  
+    protected $fillable = ['id', 'nameMunicipality', 'region_id'];
 
     public function region()
     {

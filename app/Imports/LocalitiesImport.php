@@ -8,7 +8,6 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Illuminate\Support\Arr as SupportArr;
 
 class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
@@ -17,30 +16,26 @@ class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $rows)
+    public function model(array $row)
     {
-        $id = SupportArr::get($rows, 'claveofi');
-        $id_loc = SupportArr::get($rows, 'cve_loc');
-        $name = SupportArr::get($rows, 'nom_loc');
-        $foreign = SupportArr::get($rows, 'cve_mun');
-        $Locality = Locality::where('id', $id)->exists();
+        $Locality = Locality::where('id', $row['claveofi'])->exists();
             if (!$Locality) {
-                $Localities = new Locality();
-                $Localities->id = $id;
-                $Localities->keyLocality = $id_loc;
-                $Localities->nameLocality = $name;
-                $Localities->municipality_id = $foreign ?? null;
-                $Localities->save();
+                return new Locality([
+                    'id' => $row['CLAVEOFI'] ?? $row['claveofi'],
+                    'keyLocality' => $row['CVE_LOC'] ?? $row['cve_loc'],
+                    'nameLocality' => $row['NOM_LOC'] ?? $row['nom_loc'],
+                    'municipality_id' =>  $row['CVE_MUN'] ?? $row['cve_mun'],
+                ]);
             }
     }
 
     public function batchSize(): int
     {
-        return 1000;
+        return 200;
     }
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 400;
     }
 }

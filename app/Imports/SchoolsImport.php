@@ -19,28 +19,25 @@ class SchoolsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithCh
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     
-    public function model(array $rows)
+    public function model(array $row)
     {    
-            $id = SupportArr::get($rows, 'cve_esc');
-            $name = SupportArr::get($rows, 'nom_esc');
-            $foreign = SupportArr::get($rows, 'claveofi');
-            $School = School::where('idSchool', $id)->exists();
+            $School = School::where('idSchool', $row['cve_esc'])->exists();
             if (!$School) {
-               $Schools = new School();
-                $Schools->idSchool = $id;
-                $Schools->nameSchool = $name;
-                $Schools->locality_id = $foreign ?? null;
-                $Schools->save();
+                return new School([
+                    'idSchool' => $row['CVE_ESC'] ?? $row['cve_esc'],
+                    'nameSchool' => $row['NOM_ESC'] ?? $row['nom_esc'],
+                    'locality_id' =>  $row['CLAVEOFI'] ?? $row['claveofi'],
+                ]);
             }    
     }
 
     public function batchSize(): int
     {
-        return 1000;
+        return 200;
     }
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 400;
     }
 }

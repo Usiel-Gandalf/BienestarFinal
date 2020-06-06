@@ -15,13 +15,13 @@ class CreateScholarsTable extends Migration
     {
         Schema::create('scholars', function (Blueprint $table) {
             $table->id();
-            $table->string('nameScholar', 100);
-            $table->string('firstSurname', 100);
-            $table->string('secondSurname', 100);
-            $table->char('gender');
-            $table->date('birthDate', 1);
-            $table->char('curp', 15);
-            $table->timestamps();
+            $table->string('nameScholar', 100)->nullable();
+            $table->string('firstSurname', 100)->nullable();
+            $table->string('secondSurname', 100)->nullable();
+            $table->char('gender')->nullable();
+            $table->date('birthDate')->nullable();
+            $table->char('curp', 25)->nullable();
+            $table->timestamps(); 
         });
     }
 

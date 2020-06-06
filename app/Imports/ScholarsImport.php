@@ -8,38 +8,33 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Illuminate\Support\Arr as SupportArr;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
 
-class ScholarsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
+class ScholarsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $rows)
-    {
-        $id = SupportArr::get($rows, 'int_id');
-        print_r($id);
-       /* $Scholar = Scholar::where('id', $id)->exists();
-        if (!$Scholar) {
-            $name = SupportArr::get($rows, 'nom_bec');
-            $firstSurname = SupportArr::get($rows, 'ap1');
-            $secondSurname = SupportArr::get($rows, 'ap2');
-            $gender = SupportArr::get($rows, 'genero');
-            $birthDate = SupportArr::get($rows, 'genero');
-            $curp = SupportArr::get($rows, 'curp');
 
-           $Scholars = new Scholar();
-            $Scholars->id = $id;
-            $Scholars->nameScholar = $name;
-            $Scholars->firstSurname = $firstSurname;
-            $Scholars->secondSurname = $secondSurname;
-            $Scholars->gender = $gender;
-            $Scholars->birthDate = $birthDate;
-            $Scholars->curp = $curp;
-            $Scholars->save();
-        }    */
+    use SkipsErrors;
+
+    public function model(array $row)
+    {
+       $Scholar = Scholar::where('id', $row['int_id'])->exists();
+        if (!$Scholar) {
+            return new Scholar([
+                'id' => $row['INT_ID'] ?? $row['int_id'],
+                'nameScholar' => $row['NOM_BEC'] ?? $row['nom_bec'],
+                'firstSurname' => $row['AP1'] ?? $row['ap1'],
+                'secondSurname' => $row['AP2'] ?? $row['ap2'] ?? null,
+                'gender' => $row['GENERO'] ?? $row['genero'],
+                'birthDate' =>  null,
+                'curp' =>  $row['CURP'] ?? $row['curp'],
+            ]);
+        }    
     }
     
     public function batchSize(): int

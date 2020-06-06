@@ -8,7 +8,6 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Illuminate\Support\Arr as SupportArr;
 
 class MunicipalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
@@ -18,29 +17,25 @@ class MunicipalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts,
     * @return \Illuminate\Database\Eloquent\Model|null
     */
    
-    public function model(array $rows)
+    public function model(array $row)
     {
-        $id = SupportArr::get($rows, 'cve_mun');
-        $name = SupportArr::get($rows, 'nom_mun');
-        $foreign = SupportArr::get($rows, 'cve_region');
-        $Municipality = Municipality::where('id', $id)->exists();
+        $Municipality = Municipality::where('id', $row['cve_mun'])->exists();
                 if (!$Municipality) {
-                    $Municipalities = new Municipality();
-                    $Municipalities->id = $id;
-                    $Municipalities->nameMunicipality = $name;
-                    $Municipalities->region_id = $foreign ?? null;
-                    $Municipalities->save();
-
+                    return new Municipality([
+                        'id' => $row['cve_mun'] ?? $row['CVE_MUN'] ,
+                        'nameMunicipality' => $row['nom_mun'] ?? $row['NOM_MUN'] ,
+                        'region_id' =>  $row['cve_region'] ?? $row['CVE_REGION'],
+                    ]);
                 }
     }
     
     public function batchSize(): int
     {
-        return 1000;
+        return 100;
     }
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 200;
     }
 }
