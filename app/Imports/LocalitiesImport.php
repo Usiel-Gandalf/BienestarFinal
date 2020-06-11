@@ -36,6 +36,6 @@ class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
 
     public function chunkSize(): int
     {
-        return 400;
+        return 200;
     }
 }

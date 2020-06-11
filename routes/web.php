@@ -30,13 +30,16 @@ Route::get('importEntities', function () {
     return view('user.import.importEntities');
 })->name('importEntities');
 
-Route::get('importUniverses', function () {
-    return view('user.import.importUniverses');
-})->name('importUniverses');
+Route::get('importScholars', function () {
+    return view('user.import.importScholars');
+})->name('importScholars');
 
-Route::post('importMunicipality', 'ImportController@importMunicipality')->name('importMunicipality');
-Route::post('importLocality', 'ImportController@importLocality')->name('importLocality');
-Route::post('importSchool', 'ImportController@importSchool')->name('importSchool');
-Route::post('importRegion', 'ImportController@importRegion')->name('importRegion');
-Route::post('importScholar', 'ImportController@importScholar')->name('importScholar');
+Route::post('importMunicipality', 'ImportEntitiesController@importMunicipality')->name('importMunicipality');
+Route::post('importLocality', 'ImportEntitiesController@importLocality')->name('importLocality');
+Route::post('importSchool', 'ImportEntitiesController@importSchool')->name('importSchool');
+Route::post('importRegion', 'ImportEntitiesController@importRegion')->name('importRegion');
+
+
+Route::post('importScholar', 'ImportScholarsController@importScholar')->name('importScholar');
+Route::post('importTitular', 'ImportScholarsController@importTitular')->name('importTitular');
 

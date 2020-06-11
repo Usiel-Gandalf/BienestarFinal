@@ -9,7 +9,6 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Illuminate\Support\Arr as SupportArr;
 
 class RegionsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
@@ -20,19 +19,24 @@ class RegionsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithCh
      */
     public function model(array $row)
     {
-        $Region = Region::where('id', $row['cve_reg'])->exists();
-        if (!$Region) {
-            return new Region([
-                'id' => $row['CVE_REG'] ?? $row['cve_reg'],
-                'nameRegion' => $row['NOM_REG'] ?? $row['nom_reg'],
-                'region' => $row['REGION'] ?? $row['region'],
-            ]);
-        }
+       // $Region = Region::where('id', $row['cve_reg'])->exists();
+       // if (!$Region) {
+       //     return new Region([
+       //         'id' => $row['CVE_REG'] ?? $row['cve_reg'],
+       //         'nameRegion' => $row['NOM_REG'] ?? $row['nom_reg'],
+      //          'region' => $row['REGION'] ?? $row['region'],
+       //     ]);
+       // }
+           return Region::firstOrNew([
+               'id' => $row['CVE_REG'] ?? $row['cve_reg']],
+               ['nameRegion' => $row['NOM_REG'] ?? $row['nom_reg'] ?? null,
+               'region' => $row['REGION'] ?? $row['region'] ?? null,
+           ]);
     }
 
     public function batchSize(): int
     {
-        return 5;
+        return 10;
     }
 
     public function chunkSize(): int

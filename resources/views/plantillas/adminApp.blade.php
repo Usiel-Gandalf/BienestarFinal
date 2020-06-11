@@ -52,7 +52,7 @@ height:100%;">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('importEntities')}}">Entidades</a>
-                        <a class="dropdown-item" href="{{route('importUniverses')}}">Universos/Becarios</a>
+                        <a class="dropdown-item" href="{{route('importScholars')}}">Becarios/Titulares</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
