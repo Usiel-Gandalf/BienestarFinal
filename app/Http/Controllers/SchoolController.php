@@ -62,9 +62,20 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $idSchool = $request->get('id');
+        $nameSchool = $request->get('nameSchool');
+        $idLocality = $request->get('idLocality');
+       // return $request;
+
+       $schools = School::orderBy('id', 'ASC')
+       ->idSchool($idSchool)
+       ->nameSchool($nameSchool)
+       ->idLocality($idLocality)
+       ->paginate(10);
+
+       return view('user.schools.index', compact('schools'));
     }
 
     /**

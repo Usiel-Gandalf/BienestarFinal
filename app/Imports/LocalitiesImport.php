@@ -8,8 +8,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
+class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue
 {
     /**
     * @param array $row
@@ -27,6 +28,7 @@ class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
                     'municipality_id' =>  $row['CVE_MUN'] ?? $row['cve_mun'],
                 ]);
             }
+
     }
 
     public function batchSize(): int

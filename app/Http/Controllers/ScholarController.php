@@ -27,7 +27,6 @@ class ScholarController extends Controller
     public function create()
     {
         return view('user.scholars.create');
-    
     }
 
     /**
@@ -68,9 +67,24 @@ class ScholarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $idScholar = $request->get('id');
+        $nameScholar = $request->get('nameScholar');
+        $firstSurnameScholar = $request->get('firstSurnameScholar');
+        $secondSurnameScholar = $request->get('secondSurnameScholar');
+       // $curpScholar = $request->get('curpScholar');
+       // return $request;
+
+       $scholars = Scholar::orderBy('id', 'ASC')
+       ->idScholar($idScholar)
+       ->nameScholar($nameScholar)
+       ->firstSurnameScholar($firstSurnameScholar)
+       ->secondSurnameScholar($secondSurnameScholar)
+       //->curpScholar($curpScholar)
+       ->paginate(10);
+
+       return view('user.scholars.index', compact('scholars'));
     }
 
     /**
@@ -103,7 +117,7 @@ class ScholarController extends Controller
             'firstSurname' => 'required|string',
             'secondSurname' => 'required|string',
             'gender' => 'required',
-            'birthDate' => 'required|date',
+            'birthDate' => 'required',
             'curp' => 'required|string',
         ]);
 

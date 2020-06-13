@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ScholarsImport;
 use App\Imports\TitularsImport;
+use App\Console\importTitular;
+use App\Titular;
 
 class ImportScholarsController extends Controller
 {
@@ -19,6 +21,7 @@ class ImportScholarsController extends Controller
     $file = $request->file('scholar');
     Excel::import(new ScholarsImport, $file); 
     return back()->with('scholarAlert', 'Importacion de alumnos exitoso');
+
 }
 
 public function importTitular(Request $request){
@@ -28,6 +31,7 @@ public function importTitular(Request $request){
     ]);
     
     $file = $request->file('titular');
+
     Excel::import(new TitularsImport, $file); 
     return back()->with('titularAlert', 'Importacion de titulares con exito');
 }

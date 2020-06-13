@@ -19,7 +19,7 @@ class ImportEntitiesController extends Controller
     ]);
 
     $file = $request->file('region');
-    Excel::import(new RegionsImport, $file); 
+    Excel::queueImport(new RegionsImport, $file); 
     return back()->with('regionAlert', 'Importacion de regiones exitosa'); 
 }
 

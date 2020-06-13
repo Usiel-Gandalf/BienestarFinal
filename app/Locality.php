@@ -17,4 +17,32 @@ class Locality extends Model
         return $this->hasMany(Locality::class);
     }
 
+    public function scopeIdLocality($query, $idLocality){
+        if($idLocality)
+        {
+            return $query->where('id', 'LIKE',"%$idLocality%");
+        }
+    }
+
+    public function scopeNumberLocality($query, $numberLocality){
+        if($numberLocality)
+        {
+            return $query->where('keyLocality', 'LIKE',"%$numberLocality%");
+        }
+    }
+
+    public function scopeNameLocality($query, $nameLocality){
+        if($nameLocality)
+        {
+            return $query->where('nameLocality', 'LIKE',"%$nameLocality%");
+        }
+    }
+
+    public function scopeIdMunicipality($query, $idMunicipality){
+        if($idMunicipality)
+        {
+            return $query->where('municipality_id', 'LIKE',"%$idMunicipality%");
+        }
+    }
+
 }

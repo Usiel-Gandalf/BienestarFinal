@@ -44,6 +44,7 @@ height:100%;">
                         <a class="dropdown-item" href="{{url('/locality')}}">Localidades</a>
                         <a class="dropdown-item" href="{{url('/school')}}">Escuelas</a>
                         <a class="dropdown-item" href="{{url('/scholar')}}">Alumnos</a>
+                        <a class="dropdown-item" href="{{url('/titular')}}">Titulares</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

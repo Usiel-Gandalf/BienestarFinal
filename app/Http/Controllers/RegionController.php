@@ -60,9 +60,20 @@ class RegionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $idRegion = $request->get('id');
+        $numberRegion = $request->get('numberRegion');
+        $nameRegion = $request->get('nameRegion');
+
+        $regions = Region::orderBy('id', 'ASC')
+        ->idRegion($idRegion)
+        ->numberRegion($numberRegion)
+        ->nameRegion($nameRegion)
+        ->paginate(10);
+        
+        //return $regions;
+        return view('user.regions.index', compact('regions'));
     }
 
     /**

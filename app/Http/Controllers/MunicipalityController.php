@@ -62,9 +62,20 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $idMunicipality = $request->get('id');
+        $nameMunicipality = $request->get('nameMunicipality');
+        $idRegion = $request->get('idRegion');
+       // return $request;
+
+       $municipalities = Municipality::orderBy('id', 'ASC')
+       ->id($idMunicipality)
+       ->nameMunicipality($nameMunicipality)
+       ->idRegion($idRegion)
+       ->paginate(10);
+
+       return view('user.municipalities.index', compact('municipalities'));
     }
 
     /**

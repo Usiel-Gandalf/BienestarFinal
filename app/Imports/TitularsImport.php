@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
+
 class TitularsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue, WithValidation
 {
     /**
@@ -34,6 +35,7 @@ class TitularsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
                 'birthDate' => $row['FEC_NAC'] ?? $row['fec_nac'] ?? $row['FECHA_NACIMIENTO'] ?? $row['fecha_nacimiento'] ?? null,
                 'curp' =>  $row['CURP'] ?? $row['curp'] ?? null,
             ]);
+            Titular::connection()->disableQueryLog(); 
         }
         //print_r($row['int_id'] ?? $row['INT_ID']);
         //print_r("<br>");

@@ -63,9 +63,22 @@ class LocalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $idLocality = $request->get('id');
+        $numberLocality = $request->get('numberLocality');
+        $nameLocality = $request->get('nameLocality');
+        $idMunicipality = $request->get('idMunicipality');
+       // return $request;
+
+       $localities = Locality::orderBy('id', 'ASC')
+       ->idLocality($idLocality)
+       ->numberLocality($numberLocality)
+       ->nameLocality($nameLocality)
+       ->idMunicipality($idMunicipality)
+       ->paginate(10);
+
+       return view('user.localities.index', compact('localities'));
     }
 
     /**

@@ -12,4 +12,25 @@ class Region extends Model
     {
         return $this->hasMany(Locality::class);
     }
+
+    public function scopeIdRegion($query, $id){
+        if($id)
+        {
+            return $query->where('id', 'LIKE',"%$id%");
+        }
+    }
+
+    public function scopeNumberRegion($query, $numberRegion){
+        if($numberRegion)
+        {
+            return $query->where('id', 'LIKE',"%$numberRegion%");
+        }
+    }
+
+    public function scopeNameRegion($query, $nameRegion){
+        if($nameRegion)
+        {
+            return $query->where('nameRegion', 'LIKE',"%$nameRegion%");
+        }
+    }
 }
