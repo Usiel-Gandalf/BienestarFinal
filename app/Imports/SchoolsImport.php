@@ -28,9 +28,7 @@ class SchoolsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithCh
                     'nameSchool' => $row['NOM_ESC'] ?? $row['nom_esc'],
                     'locality_id' =>  $row['CLAVEOFI'] ?? $row['claveofi'],
                 ]);
-            } 
-           School::connection()->disableQueryLog(); 
-        
+            }         
     }
 
     public function batchSize(): int

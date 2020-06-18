@@ -13,6 +13,12 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 
 class ScholarsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue, WithValidation
 {
+    private $level;
+
+    public function __construct($level)
+    {
+        $this->level = $level;
+    }
     /**
     * @param array $row
     *
@@ -31,6 +37,7 @@ class ScholarsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
                 'gender' => $row['GENERO'] ?? $row['genero'] ?? null,
                 'birthDate' => $row['FEC_NAC'] ?? $row['fec_nac'] ?? $row['FECHA_NACIMIENTO'] ?? $row['fecha_nacimiento'] ?? null,
                 'curp' =>  $row['CURP'] ?? $row['curp'] ?? null,
+                'level' =>  $this->level,
             ]); 
         }  
         //print_r(date("Y-m-d", $row['FEC_NAC'] ?? $row['fec_nac'] ?? $row['FECHA_NACIMIENTO'] ?? $row['fecha_nacimiento'])); 

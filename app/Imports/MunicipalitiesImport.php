@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-ini_set('max_execution_time', 1200);
+ini_set('max_execution_time', 100);
 
 use App\Municipality;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -29,7 +29,6 @@ class MunicipalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts,
                          'region_id' =>  $row['cve_region'] ?? $row['CVE_REGION'],
                      ]);
                  }
-
     }
 
     public function batchSize(): int

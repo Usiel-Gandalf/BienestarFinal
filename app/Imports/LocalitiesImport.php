@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 ini_set('max_execution_time', 1200);
+
 use App\Locality;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -22,13 +23,12 @@ class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
         $Locality = Locality::where('id', $row['claveofi'])->exists();
             if (!$Locality) {
                 return new Locality([
-                    'id' => $row['CLAVEOFI'] ?? $row['claveofi'],
-                    'keyLocality' => $row['CVE_LOC'] ?? $row['cve_loc'],
-                    'nameLocality' => $row['NOM_LOC'] ?? $row['nom_loc'],
-                    'municipality_id' =>  $row['CVE_MUN'] ?? $row['cve_mun'],
+                    'id' => $row['CLAVEOFI'] ?? $row['claveofi'] ?? null,
+                    'keyLocality' => $row['CVE_LOC'] ?? $row['cve_loc'] ?? null,
+                    'nameLocality' => $row['NOM_LOC'] ?? $row['nom_loc'] ?? null,
+                    'municipality_id' =>  $row['CVE_MUN'] ?? $row['cve_mun'] ?? null,
                 ]);
             }
-
     }
 
     public function batchSize(): int

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Model;
 
 class Locality extends Model
@@ -14,7 +15,11 @@ class Locality extends Model
     }
 
     public function schools(){
-        return $this->hasMany(Locality::class);
+        return $this->hasMany(School::class);
+    }
+
+    public function basics(){
+        return $this->hasMany(Basic::class);
     }
 
     public function scopeIdLocality($query, $idLocality){

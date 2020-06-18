@@ -75,15 +75,12 @@ class TitularController extends Controller
         $nameTitular = $request->get('nameTitular');
         $firstSurnameTitular = $request->get('firstSurnameTitular');
         $secondSurnameTitular = $request->get('secondSurnameTitular');
-       // $curpTitular = $request->get('curpTitular');
-       // return $request;
 
        $titulars = Titular::orderBy('id', 'ASC')
        ->idTitular($idTitular)
        ->nameTitular($nameTitular)
        ->firstSurnameTitular($firstSurnameTitular)
        ->secondSurnameTitular($secondSurnameTitular)
-       //->curpTitular($curpTitular)
        ->paginate(10);
 
        return view('user.titulars.index', compact('titulars'));

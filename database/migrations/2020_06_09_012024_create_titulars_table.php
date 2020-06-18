@@ -14,14 +14,15 @@ class CreateTitularsTable extends Migration
     public function up()
     {
         Schema::create('titulars', function (Blueprint $table) {
-            $table->integer('id')->unique();
-            $table->primary('id');
-            $table->integer('idScholar')->unique()->nullable();
+            //$table->integer('id');
+            //$table->primary('id');
+            $table->id();
+            $table->integer('idTitular');
             $table->string('nameTitular', 100)->nullable();
             $table->string('firstSurname', 100)->nullable();
             $table->string('secondSurname', 100)->nullable();
             $table->char('gender', 1)->nullable();
-            $table->char('birthDate', 50)->nullable();
+            $table->char('birthDate', 25)->nullable();
             $table->char('curp', 25)->nullable();
             $table->timestamps();
         });

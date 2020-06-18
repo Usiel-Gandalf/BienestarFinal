@@ -1,6 +1,10 @@
 @extends('plantillas.adminApp')
 @section('main')
 
+<div class="main my-5 text-center">
+    <h3>Subir o actualizar entidades</h3>
+</div>
+
 <div class="row">
     <!-- Region -->
     <div class="col-sm">

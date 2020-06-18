@@ -19,9 +19,10 @@ class CreateScholarsTable extends Migration
             $table->string('nameScholar', 100)->nullable();
             $table->string('firstSurname', 100)->nullable();
             $table->string('secondSurname', 100)->nullable();
-            $table->char('gender')->nullable();
-            $table->date('birthDate')->nullable();
+            $table->char('gender', 1)->nullable();
+            $table->char('birthDate', 25)->nullable();
             $table->char('curp', 25)->nullable();
+            $table->char('level', 1)->nullable();
             $table->timestamps(); 
         });
     }

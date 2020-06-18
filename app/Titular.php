@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Titular extends Model
 {
-    protected $fillable = ['id', 'idScholar','nameTitular', 'firstSurname', 'secondSurname', 'gender', 'birthDate', 'curp'];
+    protected $fillable = ['id', 'idTitular','nameTitular', 'firstSurname', 'secondSurname', 'gender', 'birthDate', 'curp'];
     //protected $attributes = ['delayed' => false,]; valores predeterminados
+
+    public function basics(){
+        return $this->hasMany(Basic::class);
+    }
 
     public function scopeIdTitular($query, $idTitular)
     {

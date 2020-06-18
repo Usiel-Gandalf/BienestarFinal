@@ -9,7 +9,7 @@ use App\Imports\MunicipalitiesImport;
 use App\Imports\LocalitiesImport;
 use App\Imports\SchoolsImport;
 
-class ImportEntitiesController extends Controller
+class ImportEntityController extends Controller
 {
     public function importRegion(Request $request)
 {
@@ -31,8 +31,9 @@ public function importMunicipality(Request $request)
     ]);
 
     $file = $request->file('municipality');
-    Excel::import(new MunicipalitiesImport, $file); 
-    return back()->with('municipalityAlert', 'Importacion de municipios exitoso');   
+    Excel::queueImport(new MunicipalitiesImport, $file); 
+    return back()->with('municipalityAlert', 'Importacion de municipios exitoso');  
+    //return 'Controlador de importacion de municipios'; 
 }
 
 public function importLocality(Request $request)

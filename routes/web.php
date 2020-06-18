@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 //Rutas de recursos
@@ -44,15 +44,20 @@ Route::get('importEntities', function () {
 Route::get('importScholars', function () {
     return view('user.import.importScholars');
 })->name('importScholars');
+
+Route::get('importDeliveries', function () {
+    return view('user.import.importDeliveries');
+})->name('importDeliveries');
 //Fin de las rutas de formularios
 
 //Rutas de importacion de las entidades, becarios, titulares y archivos excel en general
-Route::post('importMunicipality', 'ImportEntitiesController@importMunicipality')->name('importMunicipality');
-Route::post('importLocality', 'ImportEntitiesController@importLocality')->name('importLocality');
-Route::post('importSchool', 'ImportEntitiesController@importSchool')->name('importSchool');
-Route::post('importRegion', 'ImportEntitiesController@importRegion')->name('importRegion');
+Route::post('importRegion', 'ImportEntityController@importRegion')->name('importRegion');
+Route::post('importMunicipality', 'ImportEntityController@importMunicipality')->name('importMunicipality');
+Route::post('importLocality', 'ImportEntityController@importLocality')->name('importLocality');
+Route::post('importSchool', 'ImportEntityController@importSchool')->name('importSchool');
 
-Route::post('importScholar', 'ImportScholarsController@importScholar')->name('importScholar');
-Route::post('importTitular', 'ImportScholarsController@importTitular')->name('importTitular');
+
+Route::post('importScholar', 'ImportScholarController@importScholar')->name('importScholar');
+Route::post('importDelivery', 'ImportScholarController@importDelivery')->name('importDelivery');
 //Fin de las rutas de importacion de archivos excel 
 
