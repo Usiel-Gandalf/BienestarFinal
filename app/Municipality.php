@@ -17,6 +17,10 @@ class Municipality extends Model
         return $this->hasMany(Locality::class);
     }
 
+    public function basics(){
+        return $this->hasManyThrough(Basic::class, Locality::class);
+    }
+
     public function scopeId($query, $id){
         if($id)
         {

@@ -14,9 +14,12 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::paginate(10);
-       $regions->sortBy('nameRegion');
-        return view('user.regions.index', compact('regions'));
+        $region = Region::where('id', '20001')
+                        ->where('nameRegion', 'CIUDAD IXTEPEX')->count();
+                        return $region;
+        //$regions = Region::paginate(10);
+        //$regions->sortBy('nameRegion');
+        //return view('user.regions.index', compact('regions'));
     }
 
     /**
@@ -72,8 +75,11 @@ class RegionController extends Controller
         ->nameRegion($nameRegion)
         ->paginate(10);
         
-        //return $regions;
-        return view('user.regions.index', compact('regions'));
+        if (count($regions) == 0) {
+            return back()->with('notFound', 'No se encontraron resultados');
+        }else{
+            return view('user.regions.index', compact('regions'));
+        }
     }
 
     /**

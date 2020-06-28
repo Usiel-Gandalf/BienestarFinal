@@ -1,12 +1,10 @@
 @extends('plantillas.adminApp')
 
 @section('main')
-<div class="row justify-content-center">
-    <h2 class="">Registrar Becario</h2>
-</div>
-<br>
 <div class="col table-bordered">
-
+    <div class="row justify-content-center my-2">
+        <h2 class="">Registrar Becario</h2>
+    </div>
     <form action="{{url('/scholar')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -85,8 +83,8 @@
         </div>
         <br>
         <div class="row justify-content-center">
-            <input type="submit" class="btn btn-success" value="Registrar">
-            <a href="{{url('/scholar')}}" class="btn btn-warning">Regresar</a>
+            <input type="submit" class="btn btn-success mr-1" value="Registrar">
+            <a href="{{url('/scholar')}}" class="btn btn-primary">Regresar</a>
         </div>
         <br>
     </form>

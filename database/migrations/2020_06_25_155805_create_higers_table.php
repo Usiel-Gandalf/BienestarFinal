@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBasicsTable extends Migration
+class CreateHigersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,17 @@ class CreateBasicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('basics', function (Blueprint $table) {
+        Schema::create('higers', function (Blueprint $table) {
             $table->id();
-            $table->integer('titular_id')->nullable();
-            $table->integer('locality_id')->nullable();
+            $table->integer('scholar_id')->nullable();
+            $table->char('school_id')->nullable();
             $table->char('consignment', 20)->nullable();
             $table->char('fol_form', 25)->nullable();
             $table->integer('bimester')->nullable();
-            $table->date('year')->nullable();
+            $table->integer('year')->nullable();
             $table->integer('status')->nullable();
-            $table->boolean('type')->nullable();
-            //$table->foreign('titular_id')->references('id')->on('titulars')
-            //->onUpdate('cascade')
-            //->onDelete('set null');
+            $table->foreign('school_id')->references('id')->on('schools');
             $table->timestamps();
-            $table->foreign('locality_id')->references('id')->on('localities');
         });
     }
 
@@ -38,6 +34,6 @@ class CreateBasicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('basics');
+        Schema::dropIfExists('higers');
     }
 }

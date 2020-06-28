@@ -84,6 +84,12 @@ class ScholarController extends Controller
        //->curpScholar($curpScholar)
        ->paginate(10);
 
+       if (count($scholars) == 0) {
+        return back()->with('notFound', 'No se encontraron resultados');
+       } else {
+        return view('user.scholars.index', compact('scholars'));
+       }
+       
        return view('user.scholars.index', compact('scholars'));
     }
 

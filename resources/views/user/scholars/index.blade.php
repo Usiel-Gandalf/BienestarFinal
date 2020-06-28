@@ -1,35 +1,45 @@
 @extends('plantillas.adminApp')
 @section('main')
-
-<div class="container">
-    <div class="row justify-content-md-center mb-4">
-        <h1>Alumnos</h1>
+<div class="row justify-content-md-center mb-4">
+    <h1>Becarios</h1>
+</div>
+<div class="row justify-content-md-center">
+    @if(session('notFound'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{session('notFound')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="page-header">
-                <form action="{{route('searchScholar')}}" method="get" class="form-inline float-right">
-                    @csrf
-                    <div class="form-group">
-                        <input id="id" class="form-control mx-1" type="text" name="id" placeholder="Buscar por clave">
-                    </div>
-                    <div class="form-group">
-                        <input id="nameScholar" class="form-control mx-1" type="text" name="nameScholar" placeholder="Buscar por nombre">
-                    </div>
-                    <div class="form-group">
-                        <input id="firstSurnameScholar" class="form-control mx-1" type="text" name="firstSurnameScholar" placeholder="Primer apellido">
-                    </div>
-                    <div class="form-group">
-                        <input id="secondSurnameScholar" class="form-control mx-1" type="text" name="secondSurnameScholar" placeholder="Segundo apellido">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Buscar">
-                    </div>
-                </form>
-            </div>
+    @endif
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <form action="{{route('searchScholar')}}" method="get" class="form-inline float-right">
+                @csrf
+                <div class="form-group">
+                    <input id="id" class="form-control mx-1" type="text" name="id" placeholder="Buscar por clave">
+                </div>
+                <div class="form-group">
+                    <input id="nameScholar" class="form-control mx-1" type="text" name="nameScholar" placeholder="Buscar por nombre">
+                </div>
+                <div class="form-group">
+                    <input id="firstSurnameScholar" class="form-control mx-1" type="text" name="firstSurnameScholar" placeholder="Primer apellido">
+                </div>
+                <div class="form-group">
+                    <input id="secondSurnameScholar" class="form-control mx-1" type="text" name="secondSurnameScholar" placeholder="Segundo apellido">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Buscar">
+                </div>
+            </form>
         </div>
     </div>
-    <div class="table mt-2 main">
+</div>
+<div class="container table-bordered mt-2">
+    <div class="row">
         @if(session('saveScholar'))
         <div class="row justify-content-center">
             <div class="alert alert-success">
@@ -64,11 +74,6 @@
                 </tr>
             </thead>
             <tbody>
-                @if(count($scholars) == 0)
-                <div class="alert alert-danger">
-                    No se encontraron resultados
-                </div>
-                @endif
                 @foreach($scholars as $scholar)
                 <tr>
                     <th scope="row">{{$scholar->curp}}</th>
@@ -79,7 +84,7 @@
                     <td>{{'Sin formato'}}</td>
                     <td>
                         <div class="row justify-content-center mx-1">
-                            <a class="btn btn-primary my-1" href="{{url('/scholar/'.$scholar->id.'/edit')}}">Editar</a>
+                            <a class="btn btn-primary mr-1" href="{{url('/scholar/'.$scholar->id.'/edit')}}">Editar</a>
                             <form method="post" action="{{url('/scholar/'.$scholar->id)}}">
                                 @csrf
                                 {{method_field('DELETE')}}
@@ -104,4 +109,4 @@
 </div>
 
 
-@endsection
+    @endsection

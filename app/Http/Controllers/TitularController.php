@@ -40,7 +40,6 @@ class TitularController extends Controller
 
         $request->validate([
             'id' => 'required|integer',
-            'idScholar' => 'required|integer',
             'nameTitular' => 'required|string',
             'firstSurname' => 'required|string',
             'secondSurname' => 'required|string',
@@ -51,7 +50,6 @@ class TitularController extends Controller
 
         $titular = new Titular();
         $titular->id = $request->id;
-        $titular->idScholar = $request->idScholar;
         $titular->nameTitular = $request->nameTitular;
         $titular->firstSurname = $request->firstSurname;
         $titular->secondSurname = $request->secondSurname;
@@ -83,7 +81,11 @@ class TitularController extends Controller
        ->secondSurnameTitular($secondSurnameTitular)
        ->paginate(10);
 
-       return view('user.titulars.index', compact('titulars'));
+       if (count($titulars) == 0) {
+        return back()->with('notFound', 'No se encontraron resultados');
+       } else {
+        return view('user.titulars.index', compact('titulars'));
+       }
     }
 
     /**
@@ -111,7 +113,6 @@ class TitularController extends Controller
 
         $request->validate([
             'id' => 'required|integer',
-            'idScholar' => 'required|integer',
             'nameTitular' => 'required|string',
             'firstSurname' => 'required|string',
             'secondSurname' => 'required|string',

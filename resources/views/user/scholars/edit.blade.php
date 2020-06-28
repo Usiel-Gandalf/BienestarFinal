@@ -1,18 +1,16 @@
 @extends('plantillas.adminApp')
 
 @section('main')
-<div class="row justify-content-center">
-    <h2 class="">Editar Becario</h2>
-</div>
-<br>
-<div class="col table-bordered">
-
+<div class="col table-bordered mt-2">
+    <div class="row justify-content-center my-2">
+        <h2 class="">Editar becario</h2>
+    </div>
     <form action="{{url('/scholar/'.$scholar->id)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">
             <label for="keyScholar">{{'Clave del becario'}}</label>
-            <input type="text" class="form-control" name="keyScholar" id="keyScholar" value="{{$scholar->keyScholar}}">
+            <input type="text" class="form-control" name="keyScholar" id="keyScholar" value="{{$scholar->id}}">
             @error('keyScholar')
             <div class="alert alert-danger">
                 revisar nuevamente la clave del becario
@@ -92,8 +90,8 @@
         </div>
         <br>
         <div class="row justify-content-center">
-            <input type="submit" class="btn btn-success" value="Actualizar">
-            <a href="{{url('/scholar')}}" class="btn btn-warning">Regresar</a>
+            <input type="submit" class="btn btn-success mr-1" value="Actualizar">
+            <a href="{{url('/scholar')}}" class="btn btn-primary">Regresar</a>
         </div>
         <br>
     </form>

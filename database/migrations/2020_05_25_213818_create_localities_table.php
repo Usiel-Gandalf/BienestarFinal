@@ -14,14 +14,14 @@ class CreateLocalitiesTable extends Migration
     public function up()
     {
         Schema::create('localities', function (Blueprint $table) {
-            $table->integer('id')->unique();
+            $table->integer('id');
             $table->primary('id');
-            $table->integer('keyLocality');
-            $table->string('nameLocality', 100);
+            $table->integer('keyLocality')->nullable();
+            $table->string('nameLocality', 100)->nullable();
             $table->integer('municipality_id')->nullable();
             $table->timestamps();
             $table->foreign('municipality_id')->references('id')->on('municipalities')
-            ->onUpdate('cascade')
+            ->onUpdate('set null')
             ->onDelete('set null');
         });
     }

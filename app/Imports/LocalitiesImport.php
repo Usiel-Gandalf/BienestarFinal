@@ -4,6 +4,7 @@ namespace App\Imports;
 ini_set('max_execution_time', 1200);
 
 use App\Locality;
+
 use Maatwebsite\Excel\Concerns\ToModel;
 
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -20,24 +21,23 @@ class LocalitiesImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
     */
     public function model(array $row)
     {
-        $Locality = Locality::where('id', $row['claveofi'])->exists();
-            if (!$Locality) {
-                return new Locality([
-                    'id' => $row['CLAVEOFI'] ?? $row['claveofi'] ?? null,
+            Locality::firstOrCreate(
+                ['id' => $row['CLAVEOFI'] ?? $row['claveofi']],
+                [
                     'keyLocality' => $row['CVE_LOC'] ?? $row['cve_loc'] ?? null,
                     'nameLocality' => $row['NOM_LOC'] ?? $row['nom_loc'] ?? null,
                     'municipality_id' =>  $row['CVE_MUN'] ?? $row['cve_mun'] ?? null,
-                ]);
-            }
+                ]
+            );
     }
 
     public function batchSize(): int
     {
-        return 200;
+        return 900;
     }
 
     public function chunkSize(): int
     {
-        return 200;
+        return 900;
     }
 }

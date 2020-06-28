@@ -78,7 +78,11 @@ class LocalityController extends Controller
        ->idMunicipality($idMunicipality)
        ->paginate(10);
 
-       return view('user.localities.index', compact('localities'));
+       if (count($localities) == 0) {
+        return back()->with('notFound', 'No se encontraron resultados');
+       } else {
+        return view('user.localities.index', compact('localities'));
+       }
     }
 
     /**

@@ -1,6 +1,5 @@
 @extends('plantillas.adminApp')
 @section('main')
-
 <div class="col-my-5 mt-5">
   <div class="row justify-content-center">
     <br><br>

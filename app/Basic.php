@@ -6,16 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class Basic extends Model
 {
-    protected $fillable = ['id', 'consignment', 'locality_id', 'titular_id', 'status'];
-    
-    public function titulars()
+    protected $fillable = ['id',  'titular_id', 'locality_id', 'consignment', 'fol_form', 'bimester', 'year', 'status', 'type'];
+
+    public function locality()
     {
-        return $this->belongsToMany(Titular::class);
+        return $this->belongsTo(locality::class);
     }
 
-
-    public function localities()
+    public function scopeConsignment($query, $consignment)
     {
-        return $this->belongsToMany(Locality::class);
+        if ($consignment) {
+            return $query->where('consignment', 'LIKE', "%$consignment%");
+        }
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if ($status) {
+            return $query->where('status', 'LIKE', "%$status%");
+        }
+    }
+
+    public function scopeBimester($query, $bimester)
+    {
+        if ($bimester) {
+            return $query->where('bimester', 'LIKE', "%$bimester%");
+        }
+    }
+
+    public function scopeTitular($query, $titular_id)
+    {
+        if ($titular_id) {
+            return $query->where('titular_id', 'LIKE', "%$titular_id%");
+        }
     }
 }

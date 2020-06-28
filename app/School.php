@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
-    protected $fillable = ['id', 'idSchool', 'nameSchool', 'locality_id'];
+    protected $keyType = 'string';
+    protected $fillable = ['id', 'nameSchool', 'locality_id'];
 
     public function locality()
     {
@@ -16,7 +17,7 @@ class School extends Model
     public function scopeIdSchool($query, $idSchool)
     {
         if ($idSchool) {
-            return $query->where('idSchool', 'LIKE', "%$idSchool%");
+            return $query->where('id', 'LIKE', "%$idSchool%");
         }
     }
 

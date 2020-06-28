@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <title>SAO</title>
+    <title>@yield('title', 'SAO')</title>
 </head>
 
 <body style="margin:0px;
@@ -42,7 +42,7 @@ height:100%;">
                         <a class="dropdown-item" href="{{url('/municipality')}}">Municipios</a>
                         <a class="dropdown-item" href="{{url('/locality')}}">Localidades</a>
                         <a class="dropdown-item" href="{{url('/school')}}">Escuelas</a>
-                        <a class="dropdown-item" href="{{url('/scholar')}}">Alumnos</a>
+                        <a class="dropdown-item" href="{{url('/scholar')}}">Becarios</a>
                         <a class="dropdown-item" href="{{url('/titular')}}">Titulares</a>
                     </div>
                 </li>
@@ -53,7 +53,9 @@ height:100%;">
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('importEntities')}}">Entidades</a>
                         <a class="dropdown-item" href="{{route('importScholars')}}">Becarios/Titulares</a>
-                        <a class="dropdown-item" href="{{route('importDeliveries')}}">Universos de entrega</a>
+                        <a class="dropdown-item" href="{{route('importBasic')}}">Educacion basica</a>
+                        <a class="dropdown-item" href="{{route('importMedium')}}">Media superior</a>
+                        <a class="dropdown-item" href="{{route('importHiger')}}">Educacion superior</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -61,7 +63,7 @@ height:100%;">
                         Universos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="">Educacion basica</a>
+                        <a class="dropdown-item" href="{{url('/basicEducation')}}">Educacion basica</a>
                         <a class="dropdown-item" href="">Educacion media superior</a>
                         <a class="dropdown-item" href="">Jovenes escribiendo el futuro</a>
                     </div>

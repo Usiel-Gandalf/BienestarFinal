@@ -1,27 +1,26 @@
 @extends('plantillas.adminApp')
 @section('main')
-
-<div class="main my-5 text-center">
-    <h3>BECARIOS O TITULARES</h3>
+<div class="row justify-content-md-center mb-2">
+    <h1>BECARIOS Ó TITULARES</h1>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Importante!</strong> Esto es solamente para registrar la pura informacion ya sea de los becarios o titulares,
-        solo para llevar el control de sus informaciones personales <strong>¡Atencion!</strong>
+        solo para llevar el control de sus informaciones personales
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 </div>
 
-<div class="row">
+<div class="row justify-content-md-center">
     <!-- Scholar -->
-    <div class="col-sm">
+    <div class="col-7">
         <div class="card">
             <h5 class="card-header">Becarios ó Titulares</h5>
             <div class="card-body text-center">
                 <h5 class="card-title">Informacion personal</h5>
-                <p class="card-text">Se agregara la informacion de los becarios
+                <p class="card-text">Se agregara la informacion de los becarios o titulares
                 </p>
-                <div class="col ">
+                <div class="col">
                     <form action="{{route('importScholar')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('post')
@@ -69,7 +68,5 @@
         </div>
     </div>
     <!-- EndScholar -->
-
 </div>
-
 @endsection

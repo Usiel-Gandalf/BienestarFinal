@@ -14,10 +14,8 @@ class CreateTitularsTable extends Migration
     public function up()
     {
         Schema::create('titulars', function (Blueprint $table) {
-            //$table->integer('id');
-            //$table->primary('id');
-            $table->id();
-            $table->integer('idTitular');
+            $table->integer('id')->unique();
+            $table->primary('id');
             $table->string('nameTitular', 100)->nullable();
             $table->string('firstSurname', 100)->nullable();
             $table->string('secondSurname', 100)->nullable();

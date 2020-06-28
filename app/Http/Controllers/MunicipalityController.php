@@ -75,7 +75,11 @@ class MunicipalityController extends Controller
        ->idRegion($idRegion)
        ->paginate(10);
 
-       return view('user.municipalities.index', compact('municipalities'));
+       if (count($municipalities) == 0) {
+        return back()->with('notFound', 'No se encontraron resultados');
+       } else {
+        return view('user.municipalities.index', compact('municipalities'));
+       }
     }
 
     /**
